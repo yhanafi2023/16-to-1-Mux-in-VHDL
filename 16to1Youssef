@@ -1,0 +1,33 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+ENTITY Mux16to1_Youssef IS
+    PORT (
+        B1, B2,B3,B4,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16 : IN  STD_LOGIC;
+        Y       : OUT STD_LOGIC
+    );
+END Mux16to1_Youssef;
+ARCHITECTURE BEHAVIOR of Mux16to1_Youssef IS
+SIGNAL o,r : STD_LOGIC;
+COMPONENT Mux8to1_Youssef IS
+    PORT (
+        D1, D2,D3,f1,f2,f3,f4,f5,f6,f7,f8 : IN  STD_LOGIC;
+        Y       : OUT STD_LOGIC
+    );
+   END COMPONENT Mux8to1_Youssef;
+COMPONENT Mux4to1_Youssef IS
+    PORT ( 
+		R1, R2,x1,x2,x3,x4 : IN STD_LOGIC;
+		Y		: OUT STD_LOGIC
+	);
+END COMPONENT Mux4to1_Youssef;
+COMPONENT Mux2to1_Youssef IS
+	PORT ( 
+		S, I0, I1 : IN STD_LOGIC;
+		Y		: OUT STD_LOGIC
+	);
+END COMPONENT Mux2to1_Youssef;
+BEGIN
+    Mux1 : Mux8to1_Youssef PORT MAP (B1,B2,B3,p1,p2,p3,p4,p5,p6,p7,p8, o);
+    Mux2 : Mux8to1_Youssef PORT MAP (B1,B2,B3,p9,p10,p11,p12,p13,p14,p15,p16, r);
+    Mux3 : Mux2to1_Youssef PORT MAP (B4,o,r,Y);
+END BEHAVIOR;
